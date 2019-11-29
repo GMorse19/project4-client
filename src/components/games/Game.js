@@ -6,15 +6,17 @@ import axios from 'axios'
 import apiUrl from '../../apiConfig'
 // import Layout from '../shared/Layout'
 import GuessForm from './GuessForm.js'
+// import LoserForm from './LoserForm.js'
 
 const Game = props => {
   const [game, setGame] = useState(null)
   const [guess, setGuess] = useState('')
   const [emptyWord, setEmptyWord] = useState([])
   const [word, setWord] = useState([])
-  const [wrong, setWrong] = useState([])
+  // const [wrong, setWrong] = useState([])
   const [wrongAnswer, setWrongAnswer] = useState([])
   const [alphabet, setAlphabet] = useState([])
+  const [guessCount, setGuessCount] = useState(1)
   // const [wrongGuess, setWrongGuess] = useState(false)
   // const [guessWord, setGuessWord] = useState([])
   // const userId = props.user_id
@@ -68,71 +70,76 @@ const Game = props => {
 
   const handleSubmit = event => {
     event.preventDefault()
-    // correctGuess(guess)
-    // setGuess(event.target.value)
-    props.alert({ heading: 'Success', message: 'You guessed correct!', variant: 'success' })
+    correctGuess(guess)
+    setGuess('')
+    // props.alert({ heading: 'Success', message: 'You guessed correct!', variant: 'success' })
     // props.history.push(`games/${response.data.game.id}`)
   }
 
   const newGame = function () {
+    // const count = []
     const emptyWord = []
     const wrongAnswer = []
     const word = game.content
-    const alphabet = ['a', 'b', 'c']
+    const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g',
+      'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q',
+      'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
     setWord(word.split(''))
     setAlphabet(alphabet)
+    const wordsplit = word.split('')
     for (let i = 0; i < word.length; i++) {
-      emptyWord.push('X')
+      if (wordsplit[i] === ' ') {
+        emptyWord.push(' ')
+      } else {
+        emptyWord.push(' _ ')
+      }
     }
     for (let i = 0; i < alphabet.length; i++) {
-      wrongAnswer.push('X')
+      wrongAnswer.push(' _ ')
     }
     setEmptyWord(emptyWord)
-    setWrong('5 guesses: ')
+    // setGuessCount(count)
+    // setWrong('5 guesses: ')
     setWrongAnswer(wrongAnswer)
-    // setWrongGuess(false)
   }
 
-  // const wrongAnswer = []
-  // const wrong = []
-  // let wrongGuess = false
   const correctGuess = function (letter) {
-    // let wrongGuess = false
     if (word.includes(letter)) {
+      props.alert({
+        heading: 'Success',
+        message: 'You guessed correct!',
+        variant: 'success'
+      })
       for (let i = 0; i < word.length; i++) {
         if (letter === word[i]) {
           emptyWord[i] = letter
         }
       }
-      // else if (word.includes(letter) === false) {
-      //   wrongGuess = true
-      // setWrongGuess(true)
     } else {
       wrongGuess(letter)
     }
   }
-  // if (wrongGuess === true) {
-  //   setWrongAnswer(wrongAnswer.concat('letter'))
-  //   console.log(wrongAnswer)
-  // }
-  // wrongGuess = false
-  // setWrong(wrongGuess)
-  // return wrongGuess
-  // }
 
   const wrongGuess = function (letter) {
     for (let i = 0; i < alphabet.length; i++) {
       if (letter === alphabet[i]) {
+        props.alert({
+          heading: 'Wrong!',
+          message: 'Guess Again!',
+          variant: 'warning'
+        })
+        setGuessCount(c => c + 1)
+        console.log(guessCount)
+        if (guessCount > 5) {
+          props.history.push('/loser')
+        }
         wrongAnswer[i] = letter
       }
-    // if (word.includes(letter) === false) {
-    //   wrongAnswer[i] = letter
     }
   }
 
-  correctGuess(guess)
-  // wrongGuess(guess)
-  console.log(wrongAnswer)
+  // correctGuess(guess)
+  // console.log(wrongAnswer)
   // console.log(guess)
   // setGuessWord(emptyWord)
 
@@ -142,9 +149,9 @@ const Game = props => {
         guess={guess}
         newGame={newGame}
         emptyWord={emptyWord}
-        wrong={wrong}
+        // wrong={wrong}
         wrongAnswer={wrongAnswer}
-        correctGuess={correctGuess}
+        // correctGuess={correctGuess}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
         cancelPath="/"

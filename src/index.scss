@@ -1,1 +1,9 @@
 @import '~bootstrap/scss/bootstrap';
+
+body {
+  text-align: center;
+}
+
+.wrongGuess {
+  color: red;
+}

@@ -11,6 +11,7 @@ import ChangePassword from '../ChangePassword/ChangePassword'
 import GameCreate from '../games/GameCreate.js'
 import Games from '../games/Games.js'
 import Game from '../games/Game.js'
+import LoserForm from '../games/LoserForm.js'
 
 class App extends Component {
   constructor () {
@@ -65,6 +66,9 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/create-game' render={() => (
             <GameCreate alert={this.alert} user={user}/>
+          )} />
+          <AuthenticatedRoute user={user} path='/loser' render={() => (
+            <LoserForm alert={this.alert} user={user}/>
           )} />
         </main>
       </Fragment>
