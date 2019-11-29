@@ -8,6 +8,9 @@ import SignUp from '../SignUp/SignUp'
 import SignIn from '../SignIn/SignIn'
 import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
+import GameCreate from '../games/GameCreate.js'
+import Games from '../games/Games.js'
+import Game from '../games/Game.js'
 
 class App extends Component {
   constructor () {
@@ -53,6 +56,15 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword alert={this.alert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/games' render={() => (
+            <Games alert={this.alert} user={user}/>
+          )} />
+          <AuthenticatedRoute user={user} path='/games/:id' render={() => (
+            <Game alert={this.alert} user={user}/>
+          )} />
+          <AuthenticatedRoute user={user} path='/create-game' render={() => (
+            <GameCreate alert={this.alert} user={user}/>
           )} />
         </main>
       </Fragment>
