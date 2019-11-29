@@ -10,6 +10,9 @@ import GuessForm from './GuessForm.js'
 const Game = props => {
   const [game, setGame] = useState(null)
   const [guess, setGuess] = useState('')
+  const [emptyWord, setEmptyWord] = useState([])
+  const [word, setWord] = useState([])
+  // const [guessWord, setGuessWord] = useState([])
   // const userId = props.user_id
   // const [deleted, setDeleted] = useState(false)
 
@@ -60,15 +63,19 @@ const Game = props => {
 
   const handleSubmit = event => {
     event.preventDefault()
+    // correctGuess(guess)
     props.alert({ heading: 'Success', message: 'You guessed correct!', variant: 'success' })
     // props.history.push(`games/${response.data.game.id}`)
   }
 
-  const emptyWord = []
-  let word = game.content
-  word = word.split('')
-  for (let i = 0; i < word.length; i++) {
-    emptyWord.push('X')
+  const newGame = function () {
+    const emptyWord = []
+    const word = game.content
+    setWord(word.split(''))
+    for (let i = 0; i < word.length; i++) {
+      emptyWord.push('X')
+    }
+    setEmptyWord(emptyWord)
   }
 
   const correctGuess = function (letter) {
@@ -81,10 +88,13 @@ const Game = props => {
 
   correctGuess(guess)
   console.log(guess)
+  // setGuessWord(emptyWord)
+
   return (
     <div>
       <GuessForm
         guess={guess}
+        newGame={newGame}
         emptyWord={emptyWord}
         correctGuess={correctGuess}
         handleChange={handleChange}
