@@ -12,6 +12,8 @@ import GameCreate from '../games/GameCreate.js'
 import Games from '../games/Games.js'
 import Game from '../games/Game.js'
 import LoserForm from '../games/LoserForm.js'
+import WinnerForm from '../games/WinnerForm.js'
+import GuessForm from '../games/GuessForm.js'
 
 class App extends Component {
   constructor () {
@@ -69,6 +71,12 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/loser' render={() => (
             <LoserForm alert={this.alert} user={user}/>
+          )} />
+          <AuthenticatedRoute user={user} path='/winner' render={() => (
+            <WinnerForm alert={this.alert} user={user}/>
+          )} />
+          <AuthenticatedRoute user={user} path='/guess-form' render={() => (
+            <GuessForm alert={this.alert} user={user}/>
           )} />
         </main>
       </Fragment>

@@ -14,7 +14,7 @@ const GuessForm = ({ guess, wrong, wrongAnswer, newGame, emptyWord, handleSubmit
     />
     <button type="submit">Submit</button>
     <br />
-    <button onClick={newGame}>Play</button>
+    <button onClick={newGame}>Start Over</button>
     <br />
     <Link to={cancelPath}>
       <button>Cancel</button>

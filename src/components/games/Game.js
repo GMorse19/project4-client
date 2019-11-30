@@ -6,6 +6,7 @@ import axios from 'axios'
 import apiUrl from '../../apiConfig'
 // import Layout from '../shared/Layout'
 import GuessForm from './GuessForm.js'
+// import StartForm from './StartForm.js'
 // import LoserForm from './LoserForm.js'
 
 const Game = props => {
@@ -13,12 +14,9 @@ const Game = props => {
   const [guess, setGuess] = useState('')
   const [emptyWord, setEmptyWord] = useState([])
   const [word, setWord] = useState([])
-  // const [wrong, setWrong] = useState([])
   const [wrongAnswer, setWrongAnswer] = useState([])
   const [alphabet, setAlphabet] = useState([])
   const [guessCount, setGuessCount] = useState(1)
-  // const [wrongGuess, setWrongGuess] = useState(false)
-  // const [guessWord, setGuessWord] = useState([])
   // const userId = props.user_id
   // const [deleted, setDeleted] = useState(false)
 
@@ -63,21 +61,16 @@ const Game = props => {
 
   const handleChange = event => {
     event.persist()
-    // setGuess({ ...guess, [event.target.name]: event.target.value })
     setGuess(event.target.value)
-    // console.log(guess)
   }
 
   const handleSubmit = event => {
     event.preventDefault()
     correctGuess(guess)
     setGuess('')
-    // props.alert({ heading: 'Success', message: 'You guessed correct!', variant: 'success' })
-    // props.history.push(`games/${response.data.game.id}`)
   }
 
   const newGame = function () {
-    // const count = []
     const emptyWord = []
     const wrongAnswer = []
     const word = game.content
@@ -87,9 +80,10 @@ const Game = props => {
     setWord(word.split(''))
     setAlphabet(alphabet)
     const wordsplit = word.split('')
-    for (let i = 0; i < word.length; i++) {
+    console.log(wordsplit)
+    for (let i = 0; i < wordsplit.length; i++) {
       if (wordsplit[i] === ' ') {
-        emptyWord.push(' ')
+        emptyWord.push('-')
       } else {
         emptyWord.push(' _ ')
       }
@@ -98,8 +92,6 @@ const Game = props => {
       wrongAnswer.push(' _ ')
     }
     setEmptyWord(emptyWord)
-    // setGuessCount(count)
-    // setWrong('5 guesses: ')
     setWrongAnswer(wrongAnswer)
   }
 
@@ -110,9 +102,10 @@ const Game = props => {
         message: 'You guessed correct!',
         variant: 'success'
       })
-      for (let i = 0; i < word.length; i++) {
+      for (let i = 0; i < emptyWord.length; i++) {
         if (letter === word[i]) {
           emptyWord[i] = letter
+          checkWin()
         }
       }
     } else {
@@ -138,20 +131,28 @@ const Game = props => {
     }
   }
 
-  // correctGuess(guess)
-  // console.log(wrongAnswer)
-  // console.log(guess)
-  // setGuessWord(emptyWord)
+  const checkWin = function () {
+    const answer = []
+    for (let i = 0; i < emptyWord.length; i++) {
+      if (emptyWord[i] === '-') {
+        answer.push(' ')
+      } else if (emptyWord[i] !== '-') {
+        answer.push(emptyWord[i])
+      }
+    }
+    if (JSON.stringify(answer) === JSON.stringify(word)) {
+      props.history.push('/winner')
+    }
+  }
 
   return (
     <div>
       <GuessForm
+        game={game}
         guess={guess}
         newGame={newGame}
         emptyWord={emptyWord}
-        // wrong={wrong}
         wrongAnswer={wrongAnswer}
-        // correctGuess={correctGuess}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
         cancelPath="/"
