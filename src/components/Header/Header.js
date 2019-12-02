@@ -9,6 +9,7 @@ const authenticatedOptions = (
     <Nav.Link href="#sign-out">Sign Out</Nav.Link>
     <Nav.Link href="#create-game">Create A Game</Nav.Link>
     <Nav.Link href="#games">Games</Nav.Link>
+    <Nav.Link href="#auth-games">Auth-Games</Nav.Link>
   </Fragment>
 )
 
@@ -26,7 +27,7 @@ const alwaysOptions = (
 )
 
 const Header = ({ user }) => (
-  <Navbar bg="primary" variant="dark" expand="md">
+  <Navbar fixed="top" bg="primary" variant="dark" expand="md">
     <Navbar.Brand href="#">
       Game Stop
     </Navbar.Brand>

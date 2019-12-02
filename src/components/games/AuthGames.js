@@ -5,10 +5,10 @@ import axios from 'axios'
 import apiUrl from '../../apiConfig'
 import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
-import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
 
-const Games = props => {
+const AuthGames = props => {
   const [games, setGames] = useState([])
 
   useEffect(() => {
@@ -27,14 +27,14 @@ const Games = props => {
   }, [])
 
   const gamesJsx = games.map(game => (
-    // <ListGroup.Item key={game.id} as={'a'} href={`#/games/${game.id}`}>
-    <Button className="box list" key={game.id} as={'a'} href={`#/games/${game.id}`}><p>Game ID : {game.id}<br/>Category: {game.category} <br/>by - {game.user.email}</p></Button>
+    // <ListGroup.Item key={game.id} as={'a'} href={`#/auth-games/${game.id}`}>
+    <Button className="box list" key={game.id} as={'a'} href={`#/auth-games/${game.id}`}><p>Category: {game.category} <br/> Game ID: {game.id} <br/> by - {game.user.email}</p></Button>
     // </ListGroup.Item>
   ))
 
   return (
     <div>
-      <h1>Games!</h1>
+      <h1>Choose a Game to Play!</h1>
       <Container>
         <Row className="justify-content-md-center">
           <Col>{gamesJsx}</Col>
@@ -44,4 +44,4 @@ const Games = props => {
   )
 }
 
-export default Games
+export default AuthGames
