@@ -74,10 +74,10 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/create-game' render={() => (
             <GameCreate alert={this.alert} user={user}/>
           )} />
-          <AuthenticatedRoute user={user} path='/loser' render={() => (
+          <AuthenticatedRoute user={user} path='/auth-games/:id/loser' render={() => (
             <LoserForm alert={this.alert} user={user}/>
           )} />
-          <AuthenticatedRoute user={user} path='/winner' render={() => (
+          <AuthenticatedRoute user={user} path='/auth-games/:id/winner' render={() => (
             <WinnerForm alert={this.alert} user={user}/>
           )} />
           <AuthenticatedRoute user={user} path='/guess-form' render={() => (

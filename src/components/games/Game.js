@@ -22,7 +22,6 @@ const Game = props => {
   // const [showForm, setShowForm] = useState(false)
   const userId = props.user ? props.user_id : null
   // const [deleted, setDeleted] = useState(false)
-  console.log(userId)
   useEffect(() => {
     axios({
       url: `${apiUrl}/games/${props.match.params.id}`,

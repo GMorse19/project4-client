@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom'
 const WinnerForm = ({ game, word, emptyWord, cancelPath }) => (
   <div>
     <h1>You Win!</h1>
-    <h3>The correct answer is: {word}</h3>
+    <h3></h3>
   </div>
 )
 

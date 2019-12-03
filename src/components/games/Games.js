@@ -30,7 +30,7 @@ const Games = props => {
   const gamesJsx = games.map(game => (
     // <ListGroup.Item key={game.id} as={'a'} href={`#/games/${game.id}`}>
     <div key={game.id}>
-      {userId === game.user.id && <Button className="box list" as={'a'} href={`#/games/${game.id}`}><p>Game ID : {game.id}<br/>Category: {game.category} <br/>by - {game.user.email}</p></Button>}
+      {userId === game.user.id && <Button className="box list" as={'a'} href={`#/games/${game.id}`}><p>Game ID : {game.id}<br/>Category: {game.category} <br/>by - {game.user.username}</p></Button>}
     </div>
     // </ListGroup.Item>
   ))

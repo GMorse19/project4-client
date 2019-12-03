@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
-// import { Link } from 'react-router-dom'
-// import ListGroup from 'react-bootstrap/ListGroup'
+import { withRouter } from 'react-router-dom'
+import ListGroup from 'react-bootstrap/ListGroup'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
 import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
+import Image from 'react-image-resizer'
+// import Text from 'react-bootstrap/Text'
 
 const AuthGames = props => {
   const [games, setGames] = useState([])
@@ -26,10 +28,30 @@ const AuthGames = props => {
       .catch(console.error)
   }, [])
 
+  const redXImage = <Image
+    src="X.png"
+    height={ 125 }
+    width={ 125 }
+  />
+
+  const places = <Image
+    src="check.jpeg"
+    height={ 125 }
+    width={ 125 }
+  />
+
   const gamesJsx = games.map(game => (
-    // <ListGroup.Item key={game.id} as={'a'} href={`#/auth-games/${game.id}`}>
-    <Button className="box list" key={game.id} as={'a'} href={`#/auth-games/${game.id}`}><p>Category: {game.category} <br/> Game ID: {game.id} <br/> by - {game.user.email}</p></Button>
-    // </ListGroup.Item>
+    <ListGroup key={game.id}>
+      <Row className="justify-content-center">
+        <Col>
+          <Button className="justify-content-center box list" as={'a'} href={`#/auth-games/${game.id}`}>
+            {(game.category === 'random') && redXImage}
+            {(game.category === 'places') && places}
+            <br /> Category: {game.category} <br/> Game ID: {game.id} <br/> by - {game.user.username}
+          </Button>
+        </Col>
+      </Row>
+    </ListGroup>
   ))
 
   return (
@@ -44,4 +66,4 @@ const AuthGames = props => {
   )
 }
 
-export default AuthGames
+export default withRouter(AuthGames)

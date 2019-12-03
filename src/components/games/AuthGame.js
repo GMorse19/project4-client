@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { withRouter, Link } from 'react-router-dom'
+import Image from 'react-image-resizer'
 // import {  Redirect } from 'react-router-dom'
 import axios from 'axios'
 import Button from 'react-bootstrap/Button'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 import apiUrl from '../../apiConfig'
-// import Layout from '../shared/Layout'
+import Form from 'react-bootstrap/Form'
 // import GuessForm from './GuessForm.js'
 // import StartForm from './StartForm.js'
 // import LoserForm from './LoserForm.js'
@@ -124,7 +128,12 @@ const AuthGame = props => {
   }
   // let redX = ['why']
   const wrongGuess = function (letter) {
-    const redXImage = <img key={redX} src={'X.png'} />
+    const redXImage = <Image
+      src="X.png"
+      height={ 150 }
+      width={ 150 }
+    />
+    // <img key={redX} src={'X.png'} />
     // setRedX(redX.concat(redXImage))
 
     for (let i = 0; i < alphabet.length; i++) {
@@ -139,7 +148,9 @@ const AuthGame = props => {
         setRedX(redX.concat(redXImage))
         console.log(guessCount)
         if (guessCount > 3) {
-          props.history.push('/loser')
+          setShowForm(!showForm)
+          setChangeButton(!changeButton)
+          props.history.push('/auth-games/:id/loser')
         }
         wrongAnswer[i] = letter
       }
@@ -156,7 +167,8 @@ const AuthGame = props => {
       }
     }
     if (JSON.stringify(answer) === JSON.stringify(word)) {
-      props.history.push('/winner')
+      setShowForm(!showForm)
+      props.history.push('/auth-games/:id/winner')
     }
   }
 
@@ -171,29 +183,37 @@ const AuthGame = props => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div>
       <h1>{emptyWord}</h1>
-      {showForm && <div>
-        <label htmlFor="guess">Make A Guess - </label>
-        <input
-          placeholder="Guess..."
-          value={guess}
-          name="guess"
-          onChange={handleChange}
-        />
-        <button type="submit">Submit</button>
-        <Button variant="primary" size="lg" block onClick={tryAgain}>TRY AGAIN</Button>
-        <br/>
-        <Link to="/">
-          <button>Cancel</button>
-        </Link>
-        <h2 className="wrongGuess">{wrongAnswer}</h2>
-        <h2>{guessCount} {check}</h2>
-        <div>{redX}</div>
-        <br />
-      </div>}
+      {showForm && <Container>
+        <Row>
+          <Col><div>{guessCount} <br /> {redX}</div></Col>
+          <Col><Form onSubmit={handleSubmit}>
+            <Form.Group>
+              <label htmlFor="guess">Make A Guess - </label>
+              <Form.Control
+                placeholder="Guess..."
+                value={guess}
+                name="guess"
+                onChange={handleChange}
+              />
+              <Button type="submit">Submit</Button>
+            </Form.Group>
+          </Form>
+          <h2 className="wrongGuess">{wrongAnswer}</h2></Col>
+          <Col>
+            <Button variant="primary" onClick={tryAgain}>TRY AGAIN</Button>
+            <br />
+            <br />
+            <Link to="/">
+              <Button variant="danger">Cancel</Button>
+            </Link>
+            <h2>{check}</h2></Col>
+        </Row>
+      </Container>}
+      <br />
       {changeButton && <Button variant="primary" size="lg" block onClick={start}>PRESS HERE TO PLAY</Button>}
-    </form>
+    </div>
   )
 
   // return (
