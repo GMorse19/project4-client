@@ -13,6 +13,7 @@ class SignIn extends Component {
 
     this.state = {
       email: '',
+      username: '',
       password: ''
     }
   }
@@ -36,7 +37,7 @@ class SignIn extends Component {
       .then(() => history.push('/'))
       .catch(error => {
         console.error(error)
-        this.setState({ email: '', password: '' })
+        this.setState({ email: '', username: '', password: '' })
         alert({
           heading: 'Sign In Failed',
           message: messages.signInFailure,

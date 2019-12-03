@@ -10,6 +10,7 @@ import Container from 'react-bootstrap/Container'
 
 const Games = props => {
   const [games, setGames] = useState([])
+  const userId = props.user.id
 
   useEffect(() => {
     axios({
@@ -28,13 +29,15 @@ const Games = props => {
 
   const gamesJsx = games.map(game => (
     // <ListGroup.Item key={game.id} as={'a'} href={`#/games/${game.id}`}>
-    <Button className="box list" key={game.id} as={'a'} href={`#/games/${game.id}`}><p>Game ID : {game.id}<br/>Category: {game.category} <br/>by - {game.user.email}</p></Button>
+    <div key={game.id}>
+      {userId === game.user.id && <Button className="box list" as={'a'} href={`#/games/${game.id}`}><p>Game ID : {game.id}<br/>Category: {game.category} <br/>by - {game.user.email}</p></Button>}
+    </div>
     // </ListGroup.Item>
   ))
 
   return (
     <div>
-      <h1>Games!</h1>
+      <h1>Choose a game to UPDATE or DELETE.</h1>
       <Container>
         <Row className="justify-content-md-center">
           <Col>{gamesJsx}</Col>

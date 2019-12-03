@@ -192,7 +192,7 @@ const AuthGame = props => {
         <div>{redX}</div>
         <br />
       </div>}
-      {changeButton && <Button variant="primary" size="lg" block onClick={start}>BEGIN</Button>}
+      {changeButton && <Button variant="primary" size="lg" block onClick={start}>PRESS HERE TO PLAY</Button>}
     </form>
   )
 
