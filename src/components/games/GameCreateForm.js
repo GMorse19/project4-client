@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form'
 // import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 
-const GameForm = ({ game, handleSubmit, handleChange, cancelPath }) => (
+const GameForm = ({ game, noNums, handleSubmit, handleChange, cancelPath }) => (
   <div className="row">
     <div className="col-sm-10 col-md-8 mx-auto mt-5">
       <h1>Create a new word or phrase.</h1>
@@ -15,7 +15,8 @@ const GameForm = ({ game, handleSubmit, handleChange, cancelPath }) => (
           <Form.Control
             required
             type="text"
-            pattern="[A-Za-z]"
+            onKeyPress={(e) => noNums(e)}
+            // pattern="[A-Za-z]"
             placeholder="Enter Content Here..."
             value={game.content}
             name="content"

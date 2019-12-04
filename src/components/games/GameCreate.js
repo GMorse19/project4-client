@@ -37,6 +37,12 @@ const GameCreate = props => {
   // if (createdGameId) {
   //   return <Redirect to={`/games/${createdGameId}`} />
   // }
+  const noNums = function (event) {
+    const re = /[A-Za-z_?_ ]+/g
+    if (!re.test(event.key)) {
+      event.preventDefault()
+    }
+  }
 
   return (
     <div>
@@ -44,6 +50,7 @@ const GameCreate = props => {
         game={game}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
+        noNums={noNums}
         cancelPath="/"
       />
     </div>
