@@ -1,6 +1,7 @@
 import React from 'react'
 // import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
+import Image from 'react-image-resizer'
 
 // const authenticatedOptions = (
 //   <Fragment>
@@ -29,7 +30,11 @@ import Navbar from 'react-bootstrap/Navbar'
 const FooterPage = ({ user }) => (
   <Navbar fixed="bottom" bg="primary" variant="dark" expand="md">
     <div className="container text-center">
-      <span className="navbar-text mr-2">copyright 2019</span>
+      <span className="navbar-text mr-2">&#169; Copyright 2019 Geoffrey Morse</span>
+    </div>
+    <div className="container">
+      <a className="footerLink" href={'https://gmorse19.github.io'}>Portfolio</a>
+      <a href={'https://github.com/GMorse19'}><Image src="GitHub.png" width= { 30 } height={ 30 }/></a>
     </div>
   </Navbar>
 )

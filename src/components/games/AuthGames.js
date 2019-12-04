@@ -80,7 +80,7 @@ const AuthGames = props => {
   return (
     <div>
       <h1>Choose a Game to Play!</h1>
-      <Button onClick={selectRandom}>Random</Button>
+      <Button onClick={selectRandom}>Random Selection</Button>
       <Container>
         <Row className="justify-content-md-center">
           <Col>{gamesJsx}</Col>

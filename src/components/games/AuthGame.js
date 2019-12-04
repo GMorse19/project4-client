@@ -10,7 +10,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Modal from 'react-bootstrap/Modal'
 
-import selectRandom from './AuthGames.js'
+// import selectRandom from './AuthGames.js'
 import apiUrl from '../../apiConfig'
 import Form from 'react-bootstrap/Form'
 // import GuessForm from './GuessForm.js'
@@ -241,8 +241,6 @@ const AuthGame = props => {
 
   return (
     <div key={emptyWord}>
-      <h3>This challenge was created by {game.user.username} </h3>
-      <h4>The category is: {game.category}</h4>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Sorry, You lost. Please try again.</Modal.Title>
@@ -266,43 +264,45 @@ const AuthGame = props => {
           <Button variant="secondary" onClick={handleCloseWin}>
             Close
           </Button>
-          <Button variant="primary" onClick={selectRandom}>
+          <Button variant="primary" as={'a'} href={'#/auth-games'}>
             Try Another
           </Button>
         </Modal.Footer>
       </Modal>
-
-      <h1>{emptyWord}</h1>
       {showForm && <Container>
         <Row>
-          <Col><div>{guessCount} <br /> {redX}</div></Col>
-          <Col><Form onSubmit={handleSubmit}>
-            <Form.Group>
-              <label htmlFor="guess">Make A Guess - </label>
-              <Form.Control
-                required
-                placeholder="Guess..."
-                value={guess}
-                name="guess"
-                onChange={handleChange}
-              />
-              <Button type="submit">Guess</Button>
-            </Form.Group>
-          </Form>
-          <Form onSubmit={handleSubmit2}>
-            <Form.Group>
-              <label htmlFor="solve">Solve the puzzle - </label>
-              <Form.Control
-                required
-                placeholder="Solve..."
-                value={solve}
-                name="solve"
-                onChange={handleChange2}
-              />
-              <Button type="submit">Solve</Button>
-            </Form.Group>
-          </Form>
-          <h2 className="wrongGuess">{wrongAnswer}</h2></Col>
+          <Col><div>{redX}</div></Col>
+          <Col>
+            <h3>This challenge was created by {game.user.username} </h3>
+            <h4>The category is: {game.category}</h4>
+            <h1>{emptyWord}</h1>
+            <Form onSubmit={handleSubmit}>
+              <Form.Group>
+                <label htmlFor="guess">Make A Guess - </label>
+                <Form.Control
+                  required
+                  placeholder="Guess..."
+                  value={guess}
+                  name="guess"
+                  onChange={handleChange}
+                />
+                <Button type="submit">Guess</Button>
+              </Form.Group>
+            </Form>
+            <Form onSubmit={handleSubmit2}>
+              <Form.Group>
+                <label htmlFor="solve">Solve the puzzle - </label>
+                <Form.Control
+                  required
+                  placeholder="Solve..."
+                  value={solve}
+                  name="solve"
+                  onChange={handleChange2}
+                />
+                <Button type="submit">Solve</Button>
+              </Form.Group>
+            </Form>
+            <h2 className="wrongGuess"><p><span>Wrong guesses: {guessCount}</span></p>{wrongAnswer}</h2></Col>
           <Col>
             <Button variant="primary" onClick={tryAgain}>Start Over</Button>
             <br />
@@ -315,7 +315,9 @@ const AuthGame = props => {
       </Container>}
       <br />
       {startOver && <Button variant="primary" onClick={tryAgain}>Start Over</Button>}
-      {changeButton && <Button variant="primary" onClick={start}><h3>Press HERE to begin</h3></Button>}
+      {changeButton && <div><Button variant="primary" onClick={start}><h3>Press HERE to begin</h3></Button>
+        <h3>This challenge was created by {game.user.username} </h3>
+        <h4>The category is: {game.category}</h4></div>}
     </div>
   )
 }
