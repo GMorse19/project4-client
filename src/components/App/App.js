@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom'
 import AuthenticatedRoute from '../AuthenticatedRoute/AuthenticatedRoute'
 import AutoDismissAlert from '../AutoDismissAlert/AutoDismissAlert'
 import Header from '../Header/Header'
-// import FooterPage from '../Footer/FooterPage'
+import FooterPage from '../Footer/FooterPage'
 import SignUp from '../SignUp/SignUp'
 import SignIn from '../SignIn/SignIn'
 import SignOut from '../SignOut/SignOut'
@@ -96,6 +96,7 @@ class App extends Component {
             <GameEdit alert={this.alert} user={user}/>
           )} />
         </main>
+        <FooterPage />
       </Fragment>
     )
   }

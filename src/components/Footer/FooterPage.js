@@ -27,8 +27,10 @@ import Navbar from 'react-bootstrap/Navbar'
 // )
 
 const FooterPage = ({ user }) => (
-  <Navbar collapseOnSelect fixed="bottom" bg="primary" variant="dark" expand="md">
-    <p>copyright 2019</p>
+  <Navbar fixed="bottom" bg="primary" variant="dark" expand="md">
+    <div className="container text-center">
+      <span className="navbar-text mr-2">copyright 2019</span>
+    </div>
   </Navbar>
 )
 

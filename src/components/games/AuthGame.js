@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import Image from 'react-image-resizer'
+// import BackGround from 'BackGround.jpg'
 // import {  Redirect } from 'react-router-dom'
 import axios from 'axios'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Modal from 'react-bootstrap/Modal'
 
+import selectRandom from './AuthGames.js'
 import apiUrl from '../../apiConfig'
 import Form from 'react-bootstrap/Form'
 // import GuessForm from './GuessForm.js'
@@ -16,19 +19,32 @@ import Form from 'react-bootstrap/Form'
 
 const AuthGame = props => {
   const [game, setGame] = useState(null)
+  // set state of guess to be entered
   const [guess, setGuess] = useState('')
+  // set state for guesses to be displayed
   const [emptyWord, setEmptyWord] = useState([])
+  // set state of the word to be guessed
   const [word, setWord] = useState([])
+  const [solve, setSolve] = useState([])
   const [wrongAnswer, setWrongAnswer] = useState([])
+  // set state of the alphabet - used for displaying wrong answers
   const [alphabet, setAlphabet] = useState([])
+  // counter for wrong guesses
   const [guessCount, setGuessCount] = useState(0)
+  // for hiding and showing input forms
   const [showForm, setShowForm] = useState(false)
+  // for hiding and showing buttons
   const [changeButton, setChangeButton] = useState(true)
+  const [startOver, setStartOver] = useState(false)
+  // set the state of {redX} for display
   const [redX, setRedX] = useState([])
+  // set the state of {check} for display
   const [check, setCheck] = useState([])
-  // const userId = props.user_id
-  // const [deleted, setDeleted] = useState(false)
-
+  // set state of loser modal
+  const [show, setShow] = useState(false)
+  // set state of winner modal
+  const [showWin, setShowWin] = useState(false)
+  // GET game/:id
   useEffect(() => {
     axios({
       url: `${apiUrl}/games/${props.match.params.id}`,
@@ -41,101 +57,131 @@ const AuthGame = props => {
       .catch(console.error)
   }, [])
 
-  // const handleDelete = event => {
-  //   axios({
-  //     url: `${apiUrl}/games/${props.match.params.id}`,
-  //     method: 'DELETE',
-  //     headers: {
-  //       'Authorization': `Token token=${props.user.token}`
-  //     }
-  //   })
-  //     .then(() => {
-  //       props.alert({ heading: 'Success', message: 'You deleted a game', variant: 'success' })
-  //       props.history.push('/games')
-  //     })
-  //     .catch(() => {
-  //       props.alert({ heading: 'Uh Oh!', message: 'You did not delete a game', variant: 'warning' })
-  //     })
-  // }
-
   if (!game) {
     return <p>Loading...</p>
   }
-
-  // if (deleted) {
-  //   return <Redirect to={
-  //     { pathname: '/', state: { msg: 'Game succesfully deleted!' } }
-  //   } />
-  // }
 
   const handleChange = event => {
     event.persist()
     setGuess(event.target.value)
   }
-
+  // change for solve form
+  const handleChange2 = event => {
+    event.persist()
+    setSolve(event.target.value)
+  }
+  // handle guess form
   const handleSubmit = event => {
     event.preventDefault()
-    correctGuess(guess)
+    correctGuess(guess.toLowerCase())
     setGuess('')
   }
-
+  // handle input for solve form
+  const handleSubmit2 = event => {
+    event.preventDefault()
+    checkSolve(solve)
+    setSolve('')
+  }
+  const checkImage = <img key={check} src={'check.jpeg'} />
+  // image to be used for wrong answers
+  const redXImage = <Image
+  // set key to guessCount because the key needs to change in order
+  // to be unique.
+    key={guessCount}
+    src="X.png"
+    height={ 150 }
+    width={ 150 }
+  />
+  // create new board/ clear board
   const newGame = function () {
+    // reset fields
     setCheck([])
     setRedX([])
     setGuessCount(0)
+    setShowForm(true)
+    setStartOver(false)
     const emptyWord = []
     const wrongAnswer = []
     const word = game.content
     const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g',
       'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q',
       'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+    // set all letters to lower case for comparison
     setWord(word.toLowerCase().split(''))
     setAlphabet(alphabet)
+    // split word into an array
     const wordsplit = word.split('')
-    console.log(wordsplit)
     for (let i = 0; i < wordsplit.length; i++) {
+      // check word for spaces
       if (wordsplit[i] === ' ') {
+        // pushing '-' into blank spaces
         emptyWord.push('-')
       } else {
+        // pushing '_' as a space holder for letters to be guessed
         emptyWord.push(' _ ')
       }
     }
+    // setting wrong answer field
     for (let i = 0; i < alphabet.length; i++) {
       wrongAnswer.push(' _ ')
     }
+    // setting the fields
     setEmptyWord(emptyWord)
     setWrongAnswer(wrongAnswer)
   }
-
-  const correctGuess = function (letter) {
-    const checkImage = <img key={check} src={'check.jpeg'} />
-    if (word.includes(letter)) {
+  // checking guess
+  const correctGuess = function (guess) {
+    // const checkImage = <img key={check} src={'check.jpeg'} />
+    // guess.toLowerCase()
+    if (word.includes(guess)) {
       setCheck(checkImage)
       props.alert({
         heading: 'Success',
         message: 'You guessed correct!',
         variant: 'success'
       })
+      // checking guess against word
       for (let i = 0; i < emptyWord.length; i++) {
-        if (letter === word[i]) {
-          emptyWord[i] = letter
+        if (guess === word[i]) {
+          emptyWord[i] = guess
           checkWin()
         }
       }
     } else {
-      wrongGuess(letter)
+      // if guess does not match any letter in word check for wrong guess
+      wrongGuess(guess)
     }
   }
-  // let redX = ['why']
-  const wrongGuess = function (letter) {
-    const redXImage = <Image
-      src="X.png"
-      height={ 150 }
-      width={ 150 }
-    />
-    // <img key={redX} src={'X.png'} />
-    // setRedX(redX.concat(redXImage))
+  // check if solved form filled out correctly
+  const checkSolve = function (answer) {
+    // compare answer to word/ game.content
+    if ((answer.toLowerCase()) === (game.content.toLowerCase())) {
+      // if correct, hide form
+      setShowForm(!showForm)
+      setEmptyWord(answer)
+      handleShowWin()
+      setCheck(checkImage)
+      // props.history.push('/auth-games/:id/winner')
+    } else {
+      // if not correct add to wrong guess count
+      setGuessCount(c => c + 1)
+      // clear green check
+      setCheck([])
+      // add red X
+      setRedX(redX.concat(redXImage))
+      // check if game is over
+      if (guessCount > 3) {
+        // if too many wrong guesses, hide form
+        setShowForm(!showForm)
+        // hide button
+        setChangeButton(!changeButton)
+        handleShow()
+        // props.history.push('/auth-games/:id/loser')
+      }
+    }
+  }
 
+  const wrongGuess = function (letter) {
     for (let i = 0; i < alphabet.length; i++) {
       if (letter === alphabet[i]) {
         props.alert({
@@ -146,11 +192,11 @@ const AuthGame = props => {
         setGuessCount(c => c + 1)
         setCheck([])
         setRedX(redX.concat(redXImage))
-        console.log(guessCount)
         if (guessCount > 3) {
           setShowForm(!showForm)
           setChangeButton(!changeButton)
-          props.history.push('/auth-games/:id/loser')
+          // props.history.push('/auth-games/:id/loser')
+          handleShow()
         }
         wrongAnswer[i] = letter
       }
@@ -168,7 +214,8 @@ const AuthGame = props => {
     }
     if (JSON.stringify(answer) === JSON.stringify(word)) {
       setShowForm(!showForm)
-      props.history.push('/auth-games/:id/winner')
+      handleShowWin()
+      // props.history.push('/auth-games/:id/winner')
     }
   }
 
@@ -179,11 +226,52 @@ const AuthGame = props => {
   }
 
   const tryAgain = function () {
+    handleClose()
     newGame()
+    // setStartOver(!startOver)
   }
+  // opening and closing modal
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
+  const handleCloseWin = () => setShowWin(false)
+  const handleShowWin = () => setShowWin(true)
+  // const BackGround = <Image
+  //   src="BackGround.jpg"
+  // />
 
   return (
-    <div>
+    <div key={emptyWord}>
+      <h3>This challenge was created by {game.user.username} </h3>
+      <h4>The category is: {game.category}</h4>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Sorry, You lost. Please try again.</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{redXImage}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={tryAgain}>
+            Try Again
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal show={showWin} onHide={handleCloseWin}>
+        <Modal.Header closeButton>
+          <Modal.Title>You Won! The answer is {game.content}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{check}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseWin}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={selectRandom}>
+            Try Another
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       <h1>{emptyWord}</h1>
       {showForm && <Container>
         <Row>
@@ -192,47 +280,44 @@ const AuthGame = props => {
             <Form.Group>
               <label htmlFor="guess">Make A Guess - </label>
               <Form.Control
+                required
                 placeholder="Guess..."
                 value={guess}
                 name="guess"
                 onChange={handleChange}
               />
-              <Button type="submit">Submit</Button>
+              <Button type="submit">Guess</Button>
+            </Form.Group>
+          </Form>
+          <Form onSubmit={handleSubmit2}>
+            <Form.Group>
+              <label htmlFor="solve">Solve the puzzle - </label>
+              <Form.Control
+                required
+                placeholder="Solve..."
+                value={solve}
+                name="solve"
+                onChange={handleChange2}
+              />
+              <Button type="submit">Solve</Button>
             </Form.Group>
           </Form>
           <h2 className="wrongGuess">{wrongAnswer}</h2></Col>
           <Col>
-            <Button variant="primary" onClick={tryAgain}>TRY AGAIN</Button>
+            <Button variant="primary" onClick={tryAgain}>Start Over</Button>
             <br />
             <br />
             <Link to="/">
-              <Button variant="danger">Cancel</Button>
+              <Button variant="danger">Home</Button>
             </Link>
             <h2>{check}</h2></Col>
         </Row>
       </Container>}
       <br />
-      {changeButton && <Button variant="primary" size="lg" block onClick={start}>PRESS HERE TO PLAY</Button>}
+      {startOver && <Button variant="primary" onClick={tryAgain}>Start Over</Button>}
+      {changeButton && <Button variant="primary" onClick={start}><h3>Press HERE to begin</h3></Button>}
     </div>
   )
-
-  // return (
-  //   <div className="board">
-  //     <h2>{game.content}</h2>
-  //     <h2>{word}</h2>
-  //     <h3>{emptyWord}</h3>
-  //     <form onSubmit={handleSubmit}>
-  //       <input />
-  //       <button type="submit">Submit</button>
-  //     </form>
-  //   </div>
-  // )
-  // return (
-  //   <div>
-  //     <h2>Content: {game.content}</h2>
-  //     {userId === game.user_id && <button onClick={handleDelete} className="btn btn-danger">Delete</button>}
-  //   </div>
-  // )
 }
-// {game && game.content} cool alternative.
+
 export default withRouter(AuthGame)

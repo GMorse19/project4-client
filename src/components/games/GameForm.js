@@ -12,6 +12,8 @@ const GameForm = ({ game, handleSubmit, handleChange, cancelPath }) => (
           <Form.Label htmlFor="content">Content</Form.Label>
           <Form.Control
             required
+            type="text"
+            onKeyPress={event => (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)}
             placeholder="Content..."
             value={game.content}
             name="content"

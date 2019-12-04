@@ -3,7 +3,8 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { withRouter } from 'react-router-dom'
 import apiUrl from '../../apiConfig'
-import GameForm from './GameForm.js'
+// import GameForm from './GameForm.js'
+import GameCreateForm from './GameCreateForm.js'
 // import Layout from '../shared/Layout'
 
 const GameCreate = props => {
@@ -39,7 +40,7 @@ const GameCreate = props => {
 
   return (
     <div>
-      <GameForm
+      <GameCreateForm
         game={game}
         handleChange={handleChange}
         handleSubmit={handleSubmit}

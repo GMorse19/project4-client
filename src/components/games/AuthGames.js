@@ -28,25 +28,48 @@ const AuthGames = props => {
       .catch(console.error)
   }, [])
 
-  const redXImage = <Image
-    src="X.png"
+  const person = <Image
+    src="person.png"
     height={ 125 }
     width={ 125 }
   />
 
-  const places = <Image
-    src="check.jpeg"
+  const place = <Image
+    src="place.png"
+    height={ 125 }
+    width={ 125 }
+    roundedCircle
+  />
+
+  const phrase = <Image
+    src="phrase.jpeg"
     height={ 125 }
     width={ 125 }
   />
+
+  const thing = <Image
+    src="thing.jpeg"
+    height={ 125 }
+    width={ 125 }
+  />
+
+  const selectRandom = function () {
+    const randomChoice = games[Math.floor(Math.random() * games.length)]
+    console.log(randomChoice)
+    props.history.push(`auth-games/${randomChoice.id}`)
+  }
 
   const gamesJsx = games.map(game => (
     <ListGroup key={game.id}>
       <Row className="justify-content-center">
         <Col>
           <Button className="justify-content-center box list" as={'a'} href={`#/auth-games/${game.id}`}>
-            {(game.category === 'random') && redXImage}
-            {(game.category === 'places') && places}
+            <div>
+              {(game.category === 'person') && person}
+              {(game.category === 'place') && place}
+              {(game.category === 'phrase') && phrase}
+              {(game.category === 'thing') && thing}
+            </div>
             <br /> Category: {game.category} <br/> Game ID: {game.id} <br/> by - {game.user.username}
           </Button>
         </Col>
@@ -57,6 +80,7 @@ const AuthGames = props => {
   return (
     <div>
       <h1>Choose a Game to Play!</h1>
+      <Button onClick={selectRandom}>Random</Button>
       <Container>
         <Row className="justify-content-md-center">
           <Col>{gamesJsx}</Col>
