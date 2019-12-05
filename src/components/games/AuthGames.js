@@ -24,7 +24,7 @@ const AuthGames = props => {
       .then(response => {
         setGames(response.data.games)
       })
-      .then(() => props.alert({ heading: 'Success', message: 'You got Games', variant: 'success' }))
+      // .then(() => props.alert({ heading: 'Success', message: 'You got Games', variant: 'success' }))
       .catch(console.error)
   }, [])
 

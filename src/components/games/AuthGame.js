@@ -20,6 +20,8 @@ import Form from 'react-bootstrap/Form'
 
 const AuthGame = props => {
   const [game, setGame] = useState(null)
+  const user = props.user
+
   // set state of guess to be entered
   const [guess, setGuess] = useState('')
   // set state for guesses to be displayed
@@ -210,19 +212,20 @@ const AuthGame = props => {
   const wrongGuess = function (letter) {
     for (let i = 0; i < alphabet.length; i++) {
       if (letter === alphabet[i]) {
-        props.alert({
-          heading: 'Wrong!',
-          message: 'Guess Again!',
-          variant: 'warning'
-        })
         setGuessCount(c => c + 1)
         setCheck([])
         setRedX(redX.concat(redXImage))
         if (guessCount > 3) {
           setShowForm(!showForm)
           handleShow()
+        } else {
+          wrongAnswer[i] = letter
+          props.alert({
+            heading: 'Wrong!',
+            message: 'Guess Again!',
+            variant: 'warning'
+          })
         }
-        wrongAnswer[i] = letter
       }
     }
   }
@@ -269,6 +272,7 @@ const AuthGame = props => {
           </Modal.Header>
           <Modal.Body>{sadFace}</Modal.Body>
           <Modal.Footer>
+            <Modal.Title>Sorry {user.username}.</Modal.Title>
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
@@ -283,6 +287,7 @@ const AuthGame = props => {
           </Modal.Header>
           <Modal.Body>{happyFace}</Modal.Body>
           <Modal.Footer>
+            <Modal.Title>Good Job {user.username}!</Modal.Title>
             <Button variant="secondary" onClick={handleCloseWin}>
               Close
             </Button>
