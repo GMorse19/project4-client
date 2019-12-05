@@ -1,15 +1,11 @@
 import React, { useState } from 'react'
-// import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import { withRouter } from 'react-router-dom'
 import apiUrl from '../../apiConfig'
-// import GameForm from './GameForm.js'
 import GameCreateForm from './GameCreateForm.js'
-// import Layout from '../shared/Layout'
 
 const GameCreate = props => {
   const [game, setGame] = useState({ content: '', category: '' })
-  // const [createdGameId, setCreatedGameId] = useState(null)
 
   const handleChange = event => {
     event.persist()
@@ -34,9 +30,6 @@ const GameCreate = props => {
       .catch(console.error)
   }
 
-  // if (createdGameId) {
-  //   return <Redirect to={`/games/${createdGameId}`} />
-  // }
   const noNums = function (event) {
     const re = /[A-Za-z_?_ ]+/g
     if (!re.test(event.key)) {
@@ -45,7 +38,7 @@ const GameCreate = props => {
   }
 
   return (
-    <div>
+    <div className="game-board">
       <GameCreateForm
         game={game}
         handleChange={handleChange}

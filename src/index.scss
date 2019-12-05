@@ -1,16 +1,35 @@
 @import '~bootstrap/scss/bootstrap';
 
-body, html {
+body {
   height: 100%;
   text-align: center;
   padding-top: 5rem;
-  background-image: url('/casino-bg.png');
+  background-image: url('./dice.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
   margin-bottom: 100px;
 }
+
+// .App {
+//   // padding: 5em;
+//   // position: absolute;
+//   height: 80vh;
+//   width: 100vw;
+//   background-repeat: no-repeat;
+//   // background-size: cover;
+//   // background-position: center;
+//   // background-attachment: fixed;
+// }
+
+// html {
+//   padding-top: 5em;
+// }
+// .game-board {
+//   padding-top: 7em;
+//   // margin-bottom: 5em;
+// }
 
 .wrongGuess {
   color: red;

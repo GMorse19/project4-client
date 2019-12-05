@@ -1,27 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button'
 import { withRouter } from 'react-router-dom'
-// import { Redirect } from 'react-router-dom'
 import axios from 'axios'
-// import Button from 'react-bootstrap/Button'
 
 import apiUrl from '../../apiConfig'
-// import Layout from '../shared/Layout'
-// import GuessForm from './GuessForm.js'
-// import StartForm from './StartForm.js'
-// import LoserForm from './LoserForm.js'
 
 const Game = props => {
   const [game, setGame] = useState(null)
-  // const [guess, setGuess] = useState('')
-  // const [emptyWord, setEmptyWord] = useState([])
-  // const [word, setWord] = useState([])
-  // const [wrongAnswer, setWrongAnswer] = useState([])
-  // const [alphabet, setAlphabet] = useState([])
-  // const [guessCount, setGuessCount] = useState(1)
-  // const [showForm, setShowForm] = useState(false)
   const userId = props.user ? props.user_id : null
-  // const [deleted, setDeleted] = useState(false)
+
   useEffect(() => {
     axios({
       url: `${apiUrl}/games/${props.match.params.id}`,
@@ -55,25 +42,8 @@ const Game = props => {
     return <p>Loading...</p>
   }
 
-  // if (deleted) {
-  //   return <Redirect to={
-  //     { pathname: '/', state: { msg: 'Game succesfully deleted!' } }
-  //   } />
-  // }
-
-  // const handleChange = event => {
-  //   event.persist()
-  //   setGuess(event.target.value)
-  // }
-  //
-  // const handleSubmit = event => {
-  //   event.preventDefault()
-  //   correctGuess(guess)
-  //   setGuess('')
-  // }
-
   return (
-    <div>
+    <div className="game-board">
       <h2>Content: {game.content}</h2>
       <h2>Category: {game.category}</h2>
       <h2>ID: {game.id}</h2>
@@ -85,5 +55,5 @@ const Game = props => {
     </div>
   )
 }
-// {game && game.content} cool alternative.
+
 export default withRouter(Game)

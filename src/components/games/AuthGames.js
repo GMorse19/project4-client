@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import ListGroup from 'react-bootstrap/ListGroup'
-import axios from 'axios'
-import apiUrl from '../../apiConfig'
 import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Image from 'react-image-resizer'
-// import Text from 'react-bootstrap/Text'
+
+import axios from 'axios'
+import apiUrl from '../../apiConfig'
 
 const AuthGames = props => {
   const [games, setGames] = useState([])
@@ -28,6 +28,7 @@ const AuthGames = props => {
       .catch(console.error)
   }, [])
 
+  // images for game.category
   const person = <Image
     src="person.png"
     height={ 125 }
@@ -53,9 +54,20 @@ const AuthGames = props => {
     width={ 125 }
   />
 
+  const book = <Image
+    src="book.jpeg"
+    height={ 125 }
+    width={ 125 }
+  />
+
+  const other = <Image
+    src="other.jpeg"
+    height={ 125 }
+    width={ 125 }
+  />
+
   const selectRandom = function () {
     const randomChoice = games[Math.floor(Math.random() * games.length)]
-    console.log(randomChoice)
     props.history.push(`auth-games/${randomChoice.id}`)
   }
 
@@ -69,6 +81,12 @@ const AuthGames = props => {
               {(game.category === 'place') && place}
               {(game.category === 'phrase') && phrase}
               {(game.category === 'thing') && thing}
+              {(game.category === 'book') && book}
+              {(game.category !== 'thing') &&
+              (game.category !== 'place') &&
+              (game.category !== 'person') &&
+              (game.category !== 'book') &&
+              (game.category !== 'phrase') && other}
             </div>
             <br /> Category: {game.category} <br/> Game ID: {game.id} <br/> by - {game.user.username}
           </Button>
@@ -78,7 +96,7 @@ const AuthGames = props => {
   ))
 
   return (
-    <div>
+    <div className="game-board">
       <h1>Choose a Game to Play!</h1>
       <Button onClick={selectRandom}>Random Selection</Button>
       <Container>

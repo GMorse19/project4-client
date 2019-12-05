@@ -2,11 +2,10 @@ import React from 'react'
 import { withRouter } from 'react-router-dom'
 
 import Form from 'react-bootstrap/Form'
-// import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 
 const GameForm = ({ game, noNums, handleSubmit, handleChange, cancelPath }) => (
-  <div className="row">
+  <div className="game-board row">
     <div className="col-sm-10 col-md-8 mx-auto mt-5">
       <h1>Create a new word or phrase.</h1>
       <Form onSubmit={handleSubmit}>
@@ -16,7 +15,6 @@ const GameForm = ({ game, noNums, handleSubmit, handleChange, cancelPath }) => (
             required
             type="text"
             onKeyPress={(e) => noNums(e)}
-            // pattern="[A-Za-z]"
             placeholder="Enter Content Here..."
             value={game.content}
             name="content"

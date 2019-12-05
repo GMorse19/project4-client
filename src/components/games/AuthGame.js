@@ -9,6 +9,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Modal from 'react-bootstrap/Modal'
+// import BackGround from './dice.jpg'
 
 // import selectRandom from './AuthGames.js'
 import apiUrl from '../../apiConfig'
@@ -35,7 +36,7 @@ const AuthGame = props => {
   const [showForm, setShowForm] = useState(false)
   // for hiding and showing buttons
   const [changeButton, setChangeButton] = useState(true)
-  const [startOver, setStartOver] = useState(false)
+  // const [startOver, setStartOver] = useState(false)
   // set the state of {redX} for display
   const [redX, setRedX] = useState([])
   // set the state of {check} for display
@@ -99,7 +100,7 @@ const AuthGame = props => {
     setRedX([])
     setGuessCount(0)
     setShowForm(true)
-    setStartOver(false)
+    // setStartOver(false)
     const emptyWord = []
     const wrongAnswer = []
     const word = game.content
@@ -159,9 +160,9 @@ const AuthGame = props => {
       // if correct, hide form
       setShowForm(!showForm)
       setEmptyWord(answer)
+      // Show Win Modal
       handleShowWin()
       setCheck(checkImage)
-      // props.history.push('/auth-games/:id/winner')
     } else {
       // if not correct add to wrong guess count
       setGuessCount(c => c + 1)
@@ -173,10 +174,8 @@ const AuthGame = props => {
       if (guessCount > 3) {
         // if too many wrong guesses, hide form
         setShowForm(!showForm)
-        // hide button
-        setChangeButton(!changeButton)
+        // Show Loser Modal
         handleShow()
-        // props.history.push('/auth-games/:id/loser')
       }
     }
   }
@@ -194,8 +193,6 @@ const AuthGame = props => {
         setRedX(redX.concat(redXImage))
         if (guessCount > 3) {
           setShowForm(!showForm)
-          setChangeButton(!changeButton)
-          // props.history.push('/auth-games/:id/loser')
           handleShow()
         }
         wrongAnswer[i] = letter
@@ -215,109 +212,107 @@ const AuthGame = props => {
     if (JSON.stringify(answer) === JSON.stringify(word)) {
       setShowForm(!showForm)
       handleShowWin()
-      // props.history.push('/auth-games/:id/winner')
     }
   }
-
+  // Start the game
   const start = function () {
     setShowForm(!showForm)
-    setChangeButton(!changeButton)
+    setChangeButton(false)
     newGame()
   }
-
+  // restart game(refactor?)
   const tryAgain = function () {
     handleClose()
     newGame()
-    // setStartOver(!startOver)
+    setChangeButton(false)
   }
   // opening and closing modal
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
   const handleCloseWin = () => setShowWin(false)
   const handleShowWin = () => setShowWin(true)
-  // const BackGround = <Image
-  //   src="BackGround.jpg"
-  // />
 
+  // <div className="App" style={{ backgroundImage: `url(${BackGround})` }}>
   return (
-    <div key={emptyWord}>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Sorry, You lost. Please try again.</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>{redXImage}</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={tryAgain}>
-            Try Again
-          </Button>
-        </Modal.Footer>
-      </Modal>
-      <Modal show={showWin} onHide={handleCloseWin}>
-        <Modal.Header closeButton>
-          <Modal.Title>You Won! The answer is {game.content}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>{check}</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseWin}>
-            Close
-          </Button>
-          <Button variant="primary" as={'a'} href={'#/auth-games'}>
-            Try Another
-          </Button>
-        </Modal.Footer>
-      </Modal>
-      {showForm && <Container>
-        <Row>
-          <Col><div>{redX}</div></Col>
-          <Col>
-            <h3>This challenge was created by {game.user.username} </h3>
-            <h4>The category is: {game.category}</h4>
-            <h1>{emptyWord}</h1>
-            <Form onSubmit={handleSubmit}>
-              <Form.Group>
-                <label htmlFor="guess">Make A Guess - </label>
-                <Form.Control
-                  required
-                  placeholder="Guess..."
-                  value={guess}
-                  name="guess"
-                  onChange={handleChange}
-                />
-                <Button type="submit">Guess</Button>
-              </Form.Group>
-            </Form>
-            <Form onSubmit={handleSubmit2}>
-              <Form.Group>
-                <label htmlFor="solve">Solve the puzzle - </label>
-                <Form.Control
-                  required
-                  placeholder="Solve..."
-                  value={solve}
-                  name="solve"
-                  onChange={handleChange2}
-                />
-                <Button type="submit">Solve</Button>
-              </Form.Group>
-            </Form>
-            <h2 className="wrongGuess"><p><span>Wrong guesses: {guessCount}</span></p>{wrongAnswer}</h2></Col>
-          <Col>
-            <Button variant="primary" onClick={tryAgain}>Start Over</Button>
-            <br />
-            <br />
-            <Link to="/">
-              <Button variant="danger">Home</Button>
-            </Link>
-            <h2>{check}</h2></Col>
-        </Row>
-      </Container>}
-      <br />
-      {startOver && <Button variant="primary" onClick={tryAgain}>Start Over</Button>}
-      {changeButton && <div><Button variant="primary" onClick={start}><h3>Press HERE to begin</h3></Button>
-        <h3>This challenge was created by {game.user.username} </h3>
-        <h4>The category is: {game.category}</h4></div>}
+    <div>
+      <div className="game-board" key={emptyWord}>
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Sorry, You lost. Please try again.</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>{redXImage}</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={tryAgain}>
+              Try Again
+            </Button>
+          </Modal.Footer>
+        </Modal>
+        <Modal show={showWin} onHide={handleCloseWin}>
+          <Modal.Header closeButton>
+            <Modal.Title>You Won! The answer is {game.content}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>{check}</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseWin}>
+              Close
+            </Button>
+            <Button variant="primary" as={'a'} href={'#/auth-games'}>
+              Try Another
+            </Button>
+          </Modal.Footer>
+        </Modal>
+        {showForm && <Container>
+          <Row>
+            <Col><div>{redX}</div></Col>
+            <Col>
+              <h3>This challenge was created by {game.user.username} </h3>
+              <h4>The category is: {game.category}</h4>
+              <h1>{emptyWord}</h1>
+              <Form onSubmit={handleSubmit}>
+                <Form.Group>
+                  <label htmlFor="guess">Make A Guess - </label>
+                  <Form.Control
+                    required
+                    placeholder="Guess..."
+                    value={guess}
+                    name="guess"
+                    onChange={handleChange}
+                  />
+                  <Button type="submit">Guess</Button>
+                </Form.Group>
+              </Form>
+              <Form onSubmit={handleSubmit2}>
+                <Form.Group>
+                  <label htmlFor="solve">Solve the puzzle - </label>
+                  <Form.Control
+                    required
+                    placeholder="Solve..."
+                    value={solve}
+                    name="solve"
+                    onChange={handleChange2}
+                  />
+                  <Button type="submit">Solve</Button>
+                </Form.Group>
+              </Form>
+              <h2 className="wrongGuess"><p><span>Wrong guesses: {guessCount}</span></p>{wrongAnswer}</h2></Col>
+            <Col>
+              <Button variant="primary" onClick={tryAgain}>Start Over</Button>
+              <br />
+              <br />
+              <Link to="/">
+                <Button variant="danger">Home</Button>
+              </Link>
+              <h2>{check}</h2></Col>
+          </Row>
+        </Container>}
+        <br />
+        {changeButton && <div><Button variant="primary" onClick={start}><h3>Press HERE to begin</h3></Button>
+          <h3>This challenge was created by {game.user.username} </h3>
+          <h4>The category is: {game.category}</h4></div>}
+      </div>
     </div>
   )
 }

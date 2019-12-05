@@ -9,12 +9,6 @@ const GameEdit = (props) => {
   const [game, setGame] = useState({ content: '', category: '' })
   const [updated, setUpdated] = useState(false)
 
-  // useEffect(() => {
-  //   axios(`${apiUrl}/games/${props.match.params.id}`)
-  //     .then(res => setGame(res.data.game))
-  //     .catch(console.error)
-  // }, [])
-
   const handleChange = event => {
     event.persist()
     setGame(game => ({ ...game, [event.target.name]: event.target.value }))

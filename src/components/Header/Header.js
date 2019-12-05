@@ -28,7 +28,7 @@ const alwaysOptions = (
 const Header = ({ user }) => (
   <Navbar collapseOnSelect fixed="top" bg="primary" variant="dark" expand="md">
     <Navbar.Brand href="#">
-      Game Stop
+      Const Gamer
     </Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
