@@ -21,19 +21,19 @@ const unauthenticatedOptions = (
 
 const alwaysOptions = (
   <Fragment>
-    <Nav.Link href="#home">Home</Nav.Link>
+    <Nav.Link href="#/">Home</Nav.Link>
   </Fragment>
 )
 
 const Header = ({ user }) => (
-  <Navbar collapseOnSelect fixed="top" bg="primary" variant="dark" expand="md">
+  <Navbar collapseOnSelect fixed="top" bg="secondary" variant="dark" expand="md">
     <Navbar.Brand href="#">
       Const Gamer
     </Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="ml-auto">
-        { user && <span className="navbar-text mr-2">Welcome, {user.username}</span>}
+        { user && <span style={{ color: 'black' }} className="navbar-text mr-2">Welcome, {user.username}</span>}
         { alwaysOptions }
         { user ? authenticatedOptions : unauthenticatedOptions }
       </Nav>

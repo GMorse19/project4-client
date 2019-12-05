@@ -3,7 +3,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import Image from 'react-image-resizer'
 
 const FooterPage = ({ user }) => (
-  <Navbar fixed="bottom" bg="primary" variant="dark" expand="md">
+  <Navbar fixed="bottom" bg="dark" variant="dark" expand="md">
     <div className="container text-center">
       <span className="navbar-text mr-2">&#169; Copyright 2019 Geoffrey Morse</span>
     </div>

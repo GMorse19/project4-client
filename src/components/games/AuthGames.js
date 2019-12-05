@@ -75,8 +75,8 @@ const AuthGames = props => {
     <ListGroup key={game.id}>
       <Row className="justify-content-center">
         <Col>
-          <Button className="justify-content-center box list" as={'a'} href={`#/auth-games/${game.id}`}>
-            <div>
+          <Button className="justify-content-center box list inner-shadow" as={'a'} href={`#/auth-games/${game.id}`}>
+            <div className="shadow">
               {(game.category === 'person') && person}
               {(game.category === 'place') && place}
               {(game.category === 'phrase') && phrase}
@@ -88,7 +88,7 @@ const AuthGames = props => {
               (game.category !== 'book') &&
               (game.category !== 'phrase') && other}
             </div>
-            <br /> Category: {game.category} <br/> Game ID: {game.id} <br/> by - {game.user.username}
+            <br /> <span className="text-shadow">Category: {game.category} <br/> Game ID: {game.id} <br/> by - {game.user.username}</span>
           </Button>
         </Col>
       </Row>
@@ -98,7 +98,7 @@ const AuthGames = props => {
   return (
     <div className="game-board">
       <h1>Choose a Game to Play!</h1>
-      <Button onClick={selectRandom}>Random Selection</Button>
+      <Button className="inner-shadow" onClick={selectRandom}>Random Selection</Button>
       <Container>
         <Row className="justify-content-md-center">
           <Col>{gamesJsx}</Col>

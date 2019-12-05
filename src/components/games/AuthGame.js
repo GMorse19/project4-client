@@ -83,7 +83,13 @@ const AuthGame = props => {
     checkSolve(solve)
     setSolve('')
   }
-  const checkImage = <img key={check} src={'check.jpeg'} />
+  const checkImage = <Image
+    key={check}
+    src={'check.jpeg'}
+    height={ 150 }
+    width={ 150 }
+  />
+
   // image to be used for wrong answers
   const redXImage = <Image
   // set key to guessCount because the key needs to change in order
@@ -93,6 +99,27 @@ const AuthGame = props => {
     height={ 150 }
     width={ 150 }
   />
+
+  // modal happyFace
+  const happyFace = <Image
+  // set key to guessCount because the key needs to change in order
+  // to be unique.
+    key={guessCount}
+    src="happy3.png"
+    height={ 150 }
+    width={ 150 }
+  />
+
+  // modal sadFace
+  const sadFace = <Image
+  // set key to guessCount because the key needs to change in order
+  // to be unique.
+    key={guessCount}
+    src="sad2.jpeg"
+    height={ 150 }
+    width={ 150 }
+  />
+
   // create new board/ clear board
   const newGame = function () {
     // reset fields
@@ -236,11 +263,11 @@ const AuthGame = props => {
   return (
     <div>
       <div className="game-board" key={emptyWord}>
-        <Modal show={show} onHide={handleClose}>
+        <Modal className="modal-dialog" show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Sorry, You lost. Please try again.</Modal.Title>
           </Modal.Header>
-          <Modal.Body>{redXImage}</Modal.Body>
+          <Modal.Body>{sadFace}</Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Close
@@ -250,11 +277,11 @@ const AuthGame = props => {
             </Button>
           </Modal.Footer>
         </Modal>
-        <Modal show={showWin} onHide={handleCloseWin}>
+        <Modal className="modal-dialog" show={showWin} onHide={handleCloseWin}>
           <Modal.Header closeButton>
             <Modal.Title>You Won! The answer is {game.content}</Modal.Title>
           </Modal.Header>
-          <Modal.Body>{check}</Modal.Body>
+          <Modal.Body>{happyFace}</Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleCloseWin}>
               Close
@@ -268,7 +295,7 @@ const AuthGame = props => {
           <Row>
             <Col><div>{redX}</div></Col>
             <Col>
-              <h3>This challenge was created by {game.user.username} </h3>
+              <h4>This challenge was created by {game.user.username} </h4>
               <h4>The category is: {game.category}</h4>
               <h1>{emptyWord}</h1>
               <Form onSubmit={handleSubmit}>
@@ -297,19 +324,26 @@ const AuthGame = props => {
                   <Button type="submit">Solve</Button>
                 </Form.Group>
               </Form>
-              <h2 className="wrongGuess"><p><span>Wrong guesses: {guessCount}</span></p>{wrongAnswer}</h2></Col>
+              <h2 className="wrongGuess text-shadow"><p><span>Wrong guesses: {guessCount}</span></p>{wrongAnswer}</h2></Col>
             <Col>
-              <Button variant="primary" onClick={tryAgain}>Start Over</Button>
-              <br />
-              <br />
-              <Link to="/">
-                <Button variant="danger">Home</Button>
-              </Link>
-              <h2>{check}</h2></Col>
+              <div className="directions"><h3>Directions:</h3><h5>Submit a letter to make a guess<br/>
+              You only get 5 wrong guesses!<br/>
+              No numbers accepted.<br/>
+              Enjoy!</h5></div>
+              <div className="start-home-game-buttons">
+                <Button variant="primary" onClick={tryAgain}>Start Over</Button>
+                <br />
+                <br />
+                <Link to="/">
+                  <Button variant="danger">Home</Button>
+                </Link>
+              </div>
+              <div className="green-check"><h2>{check}</h2></div>
+            </Col>
           </Row>
         </Container>}
         <br />
-        {changeButton && <div><Button variant="primary" onClick={start}><h3>Press HERE to begin</h3></Button>
+        {changeButton && <div><Button className="inner-shadow" variant="primary" onClick={start}><h3>Press HERE to begin</h3></Button>
           <h3>This challenge was created by {game.user.username} </h3>
           <h4>The category is: {game.category}</h4></div>}
       </div>

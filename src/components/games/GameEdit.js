@@ -37,9 +37,17 @@ const GameEdit = (props) => {
     return <Redirect to={`/games/${props.match.params.id}`} />
   }
 
+  const noNums = function (event) {
+    const re = /[A-Za-z_?_ ]+/g
+    if (!re.test(event.key)) {
+      event.preventDefault()
+    }
+  }
+
   return (
     <GameForm
       game={game}
+      noNums={noNums}
       handleChange={handleChange}
       handleSubmit={handleSubmit}
       cancelPath={`#home/${props.match.params.id}`}

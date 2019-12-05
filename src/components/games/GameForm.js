@@ -4,7 +4,7 @@ import { Link, withRouter } from 'react-router-dom'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
-const GameForm = ({ game, handleSubmit, handleChange, cancelPath }) => (
+const GameForm = ({ game, noNums, handleSubmit, handleChange, cancelPath }) => (
   <div className="game-board row">
     <div className="col-sm-10 col-md-8 mx-auto mt-5">
       <Form onSubmit={handleSubmit}>
@@ -13,7 +13,7 @@ const GameForm = ({ game, handleSubmit, handleChange, cancelPath }) => (
           <Form.Control
             required
             type="text"
-            onKeyPress={event => (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)}
+            onKeyPress={(e) => noNums(e)}
             placeholder="Content..."
             value={game.content}
             name="content"
