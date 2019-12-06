@@ -1,4 +1,4 @@
-# Const Gamer
+# Const Gamer: A Place to Play Games
 
 Const Gamer is a web application created for hosting multiple types of games. The client side of the application was built using [React.js](https://reactjs.org)
 and the back-end was built using [Ruby on Rails](https://rubyonrails.org)
