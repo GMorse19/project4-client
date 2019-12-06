@@ -1,126 +1,98 @@
-My Own Content
+# Const Gamer
 
-# react-auth-template
+Const Gamer is a web application created for hosting multiple types of games. The client side of the application was built using [React.js](https://reactjs.org)
+and the back-end was built using [Ruby on Rails](https://rubyonrails.org)
+.
+### Game Board View
+![GameImage](ScreenShot.png)
 
-A front-end framework template for starting projects with a recent version of
-either the [Rails API Template](https://git.generalassemb.ly/ga-wdi-boston/rails-api-template)
-or the [Express API Template](https://git.generalassemb.ly/ga-wdi-boston/express-api-template).
+### Game List View
+![Image](GamePage.png)
+## Important Links
+
+[Const Gamer Api Repo](https://github.com/GMorse19/project4-api)
+
+[Const Gamer Deployed API](https://gentle-beach-45706.herokuapp.com/)
+
+[Const Gamer Deployed Client](https://gmorse19.github.io/project4-client/)
+
+## Planning
+
+This is my fourth and final project for [General Assembly's](https://generalassemb.ly) Full Stack Immersive program. The first thing I needed to decide for this project, was which framework to use. I opted to use React.js.
+
+Having just recently learned React.js, I wanted to keep my first version of the project relatively basic. I also wanted to leave the door open to expand on the project as my comfort level within the framework grew.
+
+To do this I decided upon a site that could host multiple types of games. I figured if all goes well, I can add an endless line of games to the app.
+
+## ERD
+
+![Image](ERD.png)
+
+## Wire Frames
+
+#### Home Page
+![Image](WireFrame.png)
+
+#### List Page
+![Image](WireFrame2.png)
+
+#### Game Board
+![Image](WireFrame3.png)
+
+## User Stories
+
+#### Version 1
+- As a user I would like to sign-up and sign-in - as a registered user with a username
+- As a user I would like to choose a game to play
+- As a user I would like to choose a challenge for the previously selected game
+- As a user I would like to create a challenge for others to play
+- As a user I would like the ability to delete a challenge that I’ve created
+- As a user I would like the ability to update a challenge that I’ve created
+- As a user I would like to view all challenges that others have created as well as my own
+- As a user I would like the ability to change my password
+- As a user I would like to sign-out
+
+#### Version 2
+
+- As a user I would like to count wins and losses
+- As a user I would like to rate a game and/or a challenge
+- As a user I would like to create a group of challenges to played against a timer
+- As a user I would like to select a random puzzle
+- As a user I would like to search by category
+
+## Technologies Used
+
+- React.js
+- JavaScript
+- Bootstrap
+- HTML/CSS
+
+## Catalog of Routes
+
+| Verb  | URI Pattern     |
+|-------|-----------------|
+| GET   | /games          |
+| GET   | /auth-games     |
+| SHOW  | /games/:id      |
+| SHOW  | /auth-games/:id |
+| POST  | /create-game    |
+| PATCH | /games/:id/edit |
 
 ## Installation
 
-1. [Download](../../archive/master.zip) this template.
-1. Unzip and rename the template directory (`unzip ~/Downloads/react-auth-template-master.zip`).
-1. Move into the new project and `git init`.
-1. Empty [`README.md`](README.md) and fill with your own content.
-1. Replace `react-auth-template` in `package.json` with your
-   projects name.
-1. Replace the `"homepage"` field in `package.json` with your (public) Github
-   account name and repository name.
+1. Fork and Clone this repository.
 1. Install dependencies with `npm install`.
 1. `git add` and `git commit` your changes.
 1. Run the development server with `npm start`.
 
-## Deployment
+## Unsolved Problems
 
-Before deploying, you first need to make sure the `homepage` key in your
-`package.json` is pointing to the correct value. It should be the url of your
-deployed application.
-
-To deploy you should first make sure you are on the `master` branch with a
-clean working directory, then you can run `npm run deploy` and wait to see if
-it runs successfully.
-
-## About
-
-This template is derived from GA Boston's [react-template](https://git.generalassemb.ly/ga-wdi-boston/react-template).
-Most of the development dependencies, such as linters, SCSS compiler, Webpack
-config, NPM scripts, etc in this repo come from there.
-
-It includes all the components and routes needed to sign up, sign in, change
-passwords, and sign out of an API built with either template linked above, with
-no need for modification.
-
-**NOTE**: You should customize the included components to suit you app! They're
-provided as a guide and a bare minimum of functionality and style. Consider
-changing the provided SCSS styles, modifying the auth code, improving the flash
-messages, etc.
-
-## Structure
-
-The top-level `App` component stores the currently authenticated
-user in state, as well as data related to the flash messages. `App` renders the
-`Header` component, and a list of routes, each of which render a component from
-`src/components`. The `src/api` directory has a component file, `auth.js`, which
-contains all the needed `axios` calls pertaining to authentication.
-
-You can follow this pattern in your app as well. For instance, if you are making
-an app that keeps track of books, you might want a `src/api/books.js`, which
-contains its own `axios` call pertaining to your books resource CRUD actions.
-Using a separate directory within `components` for each individual component you
-add makes it easy to locate and update components and has the added benefit of
-making it easy to create custom styles that apply to that specific component.
-To apply component specific styles, add a file to the component's directory such
-as `ComponentName.scss` and then import it directly into the component with
-`import './ComponentName.scss'`.  This will keep your styles modularized and
-make it easier to make changes at the component level.
-
-## Features
-
-### `<AuthenticatedRoute />`
-
-This template contains a handy component for creating routes that require a
-user to be authenticated before visiting. This component lives in
-`src/auth/components/AuthenticatedRoute.js` and is already required in `App`.
-It's a thin wrapper around React Router's `<Route />` component. The only
-difference is that it expects a prop called `user`, and if that prop is falsy,
-it will render a `<Redirect />` that takes the user to `/`. **To use
-it, you must pass it the user as a prop!**
-
-It supports both the `component=` and `render=` attributes, but like `<Route />`
-it will not forward props to the component if you use `component=`.
-
-### `<AutoAlertDismiss />` Component
-
-This template also already contains a component that displays user messages.
-Messages are configurable via redux actions.  This component can be found in
-`src/components/AutoAlertDismiss/AutoAlertDismiss.js`. **There is no need to add
-this component to your app. It is already required in `App`.**  A single
-component instance is used to manage all alerts application-wide.
-
-The alert can be used by passing the alert method to a rendered route.  The
-alert method expects an object with a message and a type property.
-
-Use this component in conjunction with the `messages.js` file in the same
-directory to create and manage all of your application messages in one place.
-
-The type property must be a Bootstrap alert type, as this component is merely a
-wrapper around the [react-bootstrap Alert
-component](https://react-bootstrap.github.io/components/alerts/).  The types it
-will accept are: 'primary', 'secondary', 'success', 'danger', 'warning', 'info',
-'light', and 'dark'.
-
- To change the duration of the message, replace `5000` with a value of your
- choice (in milliseconds) in this component's `componentDidMount` method.
-
-### `src/apiConfig.js`
-
-Just like in
-[browser-template](https://git.generalassemb.ly/ga-wdi-boston/browser-template),
-this file will determine whether you're in a production or development
-environment and choose an API URL accordingly. Don't forget to replace the
-`production` URL with your deployed API's URL.
-
-## Tasks
-
-Developers should run these often!
-
-- `npm run nag`: runs code quality analysis tools on your code and complains.
-- `npm run make-standard`: reformats all your code in the JavaScript Standard
-  Style.
-- `npm run start`: generates bundles, watches, and livereloads.
-- `npm run build`: place bundled styles and scripts where `index.html` can find
-    them
-- `npm run deploy`: builds and deploys master branch
+- The App needs more games
+- I would like to refactor a lot of the code
+- The styling needs a lot of work
+- The Layout of the word game can be re-worked
+- I would like to add a search function
+- I would like to add a rating system
 
 ## [License](LICENSE)
 
