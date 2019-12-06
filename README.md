@@ -24,9 +24,12 @@ Having just recently learned React.js, I wanted to keep my first version of the 
 
 To do this I decided upon a site that could host multiple types of games. I figured if all goes well, I can add an endless line of games to the app.
 
-## ERD
+## Technologies Used
 
-![Image](ERD.png)
+- React.js
+- JavaScript
+- Bootstrap
+- HTML/CSS
 
 ## Wire Frames
 
@@ -60,12 +63,9 @@ To do this I decided upon a site that could host multiple types of games. I figu
 - As a user I would like to select a random puzzle
 - As a user I would like to search by category
 
-## Technologies Used
+## ERD
 
-- React.js
-- JavaScript
-- Bootstrap
-- HTML/CSS
+![Image](ERD.png)
 
 ## Catalog of Routes
 
