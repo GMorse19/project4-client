@@ -23,16 +23,6 @@ body {
   margin-bottom: 5em;
 }
 
-// .shadow {
-//   // box-shadow: 10px 10px 15px #ccc;
-//   //     -moz-box-shadow: 10px 10px 15px #ccc;
-//   //     -webkit-box-shadow: 10px 10px 15px #ccc;
-//   //     -khtml-box-shadow: 10px 10px 15px #ccc;
-//   -webkit-box-shadow: 5px 5px 5px 6px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
-//   -moz-box-shadow:    5px 5px 5px 6px #ccc;  /* Firefox 3.5 - 3.6 */
-//   box-shadow:         5px 5px 5px 6px #ccc;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
-// }
-
 .shadow {
   display: inline-block;
      color: #fff;
@@ -67,30 +57,8 @@ body {
 }
 
 .start-home-game-buttons {
-  // height: 100%; /* Magic here */
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
   padding-top: 3em;
 }
-// .App {
-//   // padding: 5em;
-//   // position: absolute;
-//   height: 80vh;
-//   width: 100vw;
-//   background-repeat: no-repeat;
-//   // background-size: cover;
-//   // background-position: center;
-//   // background-attachment: fixed;
-// }
-
-// html {
-//   padding-top: 5em;
-// }
-// .game-board {
-//   padding-top: 7em;
-//   // margin-bottom: 5em;
-// }
 
 .welcome-div {
   -moz-box-shadow:    inset 0 0 45px #000000;
@@ -107,7 +75,6 @@ body {
   align-items: center;
   display: subgrid;
   width: 50%;
-  // height: 200px;
   justify-content: center;
   margin: 1em;
   padding: 1em;
@@ -119,35 +86,14 @@ body {
 .footerLink:hover {
    color: red;
 }
-// .image {
-//   position: relative;
-// }
-//
-// .games-list {
-//   position: absolute;
-// }
 
 .list:hover {
   background-color: #B11313;
 }
 
 .list {
-  // align-content: center;
   font-size: 2em;
 }
-
-// .modal {
-//   position: absolute;
-//   top: 75%;
-//   transform: translateY(-50%);
-// }
-
-// .modal {
-//         position: absolute;
-//         top: 75%;
-//         left: 50%;
-//         transform: translate(-50%, -50%) !important;
-//     }
 
 .row {
   display: flex;

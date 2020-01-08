@@ -30,10 +30,12 @@ const Header = ({ user }) => (
     <Navbar.Brand href="#">
       Const Gamer
     </Navbar.Brand>
+    <Nav>
+      { user && <span style={{ color: 'black' }} className="navbar-text mr-2">Welcome, {user.username}</span>}
+    </Nav>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="ml-auto">
-        { user && <span style={{ color: 'black' }} className="navbar-text mr-2">Welcome, {user.username}</span>}
         { alwaysOptions }
         { user ? authenticatedOptions : unauthenticatedOptions }
       </Nav>
