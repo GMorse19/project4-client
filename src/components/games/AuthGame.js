@@ -1,22 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import Image from 'react-image-resizer'
-// import BackGround from 'BackGround.jpg'
-// import {  Redirect } from 'react-router-dom'
 import axios from 'axios'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Modal from 'react-bootstrap/Modal'
-// import BackGround from './dice.jpg'
 
-// import selectRandom from './AuthGames.js'
 import apiUrl from '../../apiConfig'
 import Form from 'react-bootstrap/Form'
-// import GuessForm from './GuessForm.js'
-// import StartForm from './StartForm.js'
-// import LoserForm from './LoserForm.js'
 
 const AuthGame = props => {
   const [game, setGame] = useState(null)
@@ -85,6 +78,7 @@ const AuthGame = props => {
     checkSolve(solve)
     setSolve('')
   }
+
   const checkImage = <Image
     key={check}
     src={'check.jpeg'}
