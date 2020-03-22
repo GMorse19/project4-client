@@ -75,10 +75,10 @@ class App extends Component {
             <Route exact path='/' render={() => (
               <Home alert={this.alert} setUser={this.setUser} />
             )} />
-            <AuthenticatedRoute user={user} exact path='/auth-games' render={() => (
+            <Route user={user} exact path='/auth-games' render={() => (
               <AuthGames alert={this.alert} user={user}/>
             )} />
-            <AuthenticatedRoute user={user} path='/auth-games/:id' render={() => (
+            <Route user={user} path='/auth-games/:id' render={() => (
               <AuthGame alert={this.alert} user={user}/>
             )} />
             <AuthenticatedRoute user={user} path='/games/:id/edit' render={() => (

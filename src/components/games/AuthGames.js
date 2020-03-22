@@ -16,10 +16,7 @@ const AuthGames = props => {
   useEffect(() => {
     axios({
       url: `${apiUrl}/games`,
-      method: 'GET',
-      headers: {
-        'Authorization': `Token token=${props.user.token}`
-      }
+      method: 'GET'
     })
       .then(response => {
         setGames(response.data.games)

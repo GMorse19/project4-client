@@ -13,7 +13,12 @@ import Form from 'react-bootstrap/Form'
 
 const AuthGame = props => {
   const [game, setGame] = useState(null)
-  const user = props.user
+
+  const guest = { id: '00',
+    username: 'Guest',
+    email: 'guest' }
+
+  const user = props.user ? props.user : guest
 
   // set state of guess to be entered
   const [guess, setGuess] = useState('')
@@ -44,10 +49,7 @@ const AuthGame = props => {
   useEffect(() => {
     axios({
       url: `${apiUrl}/games/${props.match.params.id}`,
-      method: 'GET',
-      headers: {
-        'Authorization': `Token token=${props.user.token}`
-      }
+      method: 'GET'
     })
       .then(res => setGame(res.data.game))
       .catch(console.error)

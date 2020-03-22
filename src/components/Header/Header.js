@@ -7,7 +7,6 @@ const authenticatedOptions = (
     <Nav.Link href="#change-password">Change Password</Nav.Link>
     <Nav.Link href="#create-game">Create A Game</Nav.Link>
     <Nav.Link href="#games">Update/Delete</Nav.Link>
-    <Nav.Link href="#auth-games">Choose A Game</Nav.Link>
     <Nav.Link href="#sign-out">Sign Out</Nav.Link>
   </Fragment>
 )
@@ -21,6 +20,7 @@ const unauthenticatedOptions = (
 
 const alwaysOptions = (
   <Fragment>
+    <Nav.Link href="#auth-games">Choose A Game</Nav.Link>
     <Nav.Link href="#/">Home</Nav.Link>
   </Fragment>
 )
